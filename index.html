@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking New Bads</title>
+
+
+
+
+
+<style>
+
+/*CONFIGS GLOBAIS estilos gerais*/
+ul {
+    color: #b3b3b3; 
+}
+
+ html {
+        scroll-behavior: smooth;
+    }
+
+
+body{
+    background-color: #121212;
+}
+
+/*BANNER PRINCIPAL section hero*/
+.hero {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 20px;
+    color: aliceblue;
+    background: linear-gradient(to bottom, #0b0b0b, #121212);
+}
+
+.hero h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: cadetblue;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    color: #b3b3b3;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:url("https://i.pinimg.com/736x/ad/f1/d3/adf1d38c95ef0b1c67ce6e692e52466b.jpg");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:700px;
+    opacity:.06;
+    filter:blur(0.5px);
+    transform:scale(1.2);
+    z-index:0;
+    pointer-events: none;
+}
+
+.btn-assistir:hover{
+    background-color: aliceblue;
+    color: black;
+}
+
+.btn-assistir{
+    display: inline-block;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid cadetblue;
+    color: aliceblue;
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 20px 40px;
+    font-size: 28px;
+    transition: all .3s ease;
+}
+
+/*TABELA DE TEMPS*/
+.temporadas {
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.temporadas table {
+    margin: auto;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+.temporadas th,
+.temporadas td {
+    border: 1px solid cadetblue;
+    padding: 12px;
+}
+
+.temporadas th {
+    background-color: cadetblue;
+    color: black;
+}
+
+/*CABEÇALHO DE NAVEGAÇÃO*/
+ .cabecalho {
+        width: 100%; 
+        box-sizing: border-box; 
+        height: 130px; /* aumentei para conseguir deixar os 3 links */
+        background-color: #0b0b0b; 
+        display: flex;
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center;
+        gap: 8px; 
+        padding: 0 80px; 
+        border-bottom: 1px solid #282828;
+    }
+
+    .cabecalho h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900; 
+        font-size: 42px;
+        letter-spacing: 2px;
+        color: white;
+        margin: 0;
+    }
+
+ .menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 20px; 
+    }
+
+    .menu a {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 13px;
+        letter-spacing: 1px;
+        color: white;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+        color: cadetblue; 
+    }
+
+
+/*CARDS DE SELEÇÃO DOS PERSONAGENS*/
+.cartao {
+ width: 200px; 
+ padding: 20px; 
+ border: 2px solid; 
+ color:cadetblue;
+ border-radius: 8px; 
+ margin: 20px; 
+ box-sizing: border-box; 
+ box-shadow: 1px 1px 5px grey;
+ font-family: Arial, sans-serif; 
+ text-align: center; 
+ background-color:#252525;
+ transition: transform 0.3s ease;
+ animation: rolarCarrossel 15s linear infinite;
+
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+
+ box-sizing: border-box;
+}
+
+.cartao:hover{
+    transform: scale(1.50); /* Aumenta o card em 5% ao passar o mouse */
+    background-color: cadetblue; /* Inverte a cor de fundo para verde */
+    color: black;
+    
+}
+
+
+.cartao img {
+ width: 100%; 
+ height: 250px; /*mesma altura para todos os cards*/
+ object-fit: cover; /*um corte na imagem, sem distorecer*/
+ border-radius: 4px;
+}
+.cartao h2 {
+ font-family: 'Montserrat', sans-serif;
+ font-size: 20px;
+ margin-top: 15px; 
+ margin-bottom: 10px;
+ color: aliceblue;
+
+ height: 60px; /* reserva espaço para nomes maiores */
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+}
+
+.cartao p {
+ font-size: 14px;
+ font-weight: normal; 
+ color: #252525;
+ margin-bottom: 15px;
+ margin-top: auto;
+ line-height: 1.4;
+}
+
+.cartao a {
+    margin-top: auto;
+    text-decoration: none; /*remove a linha chata que fica embaixo do que esá escrito*/
+    color: inherit;
+}
+
+.link-cartao{
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Aumenta o card em 5% ao passar o mouse */
+    background-color: azure; /* Inverte a cor de fundo para verde */
+    color: black;
+}
+
+.select{
+ display: block; 
+ font-size: 16px;
+ font-weight: bold;
+ color: #252525;
+ margin-top: 10px;
+}
+
+.personagens{
+    display: flex;
+    flex-direction: row;      /* cards lado a lado */
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+} 
+
+
+
+/*resposividade person.*/
+@media (max-width: 768px) {
+    .personagens {
+        flex-direction: column; /* Muda os cards para ficarem um embaixo do outro */
+        align-items: center;    /* Centraliza os cards na tela do celular */
+    }
+
+    .card {
+        width: 90%;             /* O card passa a ocupar quase toda a largura da tela do celular */
+    }
+}
+
+
+/*CARDS DE INFO abaixo dos selecionados*/
+.card-info {
+    display: grid;
+    background:rgba(255,255,255,0.04);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.05);
+
+    width:320px;
+    background:#1f1f1f;
+    border-radius:12px;
+    padding:24px;
+    color:#fff;
+    transition:all .25s ease;
+        
+}
+
+
+
+/* CONTAINER DOS CARDS */
+
+.cardss{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* CARD INDIVIDUAL */
+
+.info-card{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px;
+    color: aliceblue;
+    transition: all .25s ease;
+    box-sizing: border-box;
+}
+
+.info-card:hover{
+    background: #2a2a2a;
+    transform: translateY(-6px);
+    border-color: cadetblue;
+}
+
+/* TAG SUPERIOR */
+.tag{
+    display: inline-block;
+    color: cadetblue;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-card h3{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 0 18px 0;
+    font-size: 38px;
+    color: aliceblue;
+}
+
+
+.info-card p{
+    color: #b3b3b3;
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+/* INFORMAÇÕES INFERIORES */
+.meta{
+    display: flex;
+    gap: 10px;
+    color: #808080;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px){
+
+    .cardss{
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .info-card{
+        max-width: 100%;
+    }
+}
+
+
+.universo{
+    padding: 60px 40px;
+    color: aliceblue;
+}
+
+.universo h2{
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; 
+    letter-spacing: 2px;
+    color: white;
+    margin: 0;
+}
+
+.universo-grid{
+    display: flex;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    gap: 20px;
+    overflow: auto;
+    padding: 20px 0;
+}
+
+.card-ref{
+    
+    display: flex;
+    gap: 20px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: aliceblue;
+    transition: .3s;
+    flex: 0 0 350px;
+}
+
+.card-ref:hover{
+    transform: translateY(-6px);
+    border-color: cadetblue;
+}
+
+.card-ref img{
+    width: 160px;
+    height: 220px;
+    object-fit: cover;
+}
+
+.conteudo{
+    padding: 20px;
+}
+
+.conteudo h3{
+    font-family: 'Montserrat', sans-serif;
+    color: aliceblue;
+    margin-bottom: 12px;
+}
+
+.conteudo p{
+    font-family: 'Montserrat', sans-serif;
+    color: #b3b3b3;
+    line-height: 1.6;
+}
+
+/*efeito de card selecionado*/
+.info-card:target{
+    background: rgba(95,158,160,.12);
+
+    border-color: cadetblue;
+
+    transform: scale(1.03);
+
+    box-shadow:
+        0 0 15px rgba(95,158,160,.6),
+        0 0 30px rgba(95,158,160,.4),
+        0 0 60px rgba(95,158,160,.2);
+
+    animation: pulse 1.5s ease-in-out 2;
+}
+
+/* FEIXE DE LUZ PASSANDO */
+.info-card:target::after{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:100%;
+    height:100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.18),
+        transparent
+    );
+
+    animation: scanner 1.2s ease;
+}
+
+/* PULSAÇÃO */
+@keyframes pulse{
+
+    0%{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.04);
+    }
+
+    100%{
+        transform: scale(1.03);
+    }
+}
+
+/* SCANNER */
+@keyframes scanner{
+
+    from{
+        left:-100%;
+    }
+
+    to{
+        left:100%;
+    }
+}
+
+
+/*cenarios que marcaram*/
+.cenarios{
+    padding: 60px 40px;
+    color: white;
+}
+
+.cenarios h2{
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.cenarios-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:30px;
+}
+
+.cenario{
+    position:relative;
+    height:300px;
+
+    overflow:hidden;
+
+    border-radius:16px;
+
+    cursor:pointer;
+}
+
+.cenario img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.4s;
+}
+
+.cenario:hover img{
+    transform:scale(1.1);
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.9),
+        rgba(0,0,0,.2)
+    );
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+
+    padding:25px;
+
+    opacity:0;
+
+    transition:.4s;
+}
+
+.cenario:hover .overlay{
+    opacity:1;
+}
+
+
+ .rodape {
+        width: 100%;
+        box-sizing: border-box;
+        background-color: black; 
+        color: aliceblue;
+        font-family: consolas, sans-serif;
+        display: flex;
+        flex-direction: column;   
+        align-items: center;     
+        padding: 20px 0;
+        margin-top: auto;        
+        border-top: 1px solid #e0e0e0; 
+    }
+
+    .rodape p {
+        margin: 0 0 10px 0;      
+        font-size: 14px;
+    }
+
+</style>
+</head>
+
+
+
+<body>
+
+<!--Logo e menu de navegação do projeto (cabeçalho)-->
+
+    <header class="cabecalho">
+        <div class="menu">
+            <h1>BREAKING BAD</h1>
+        <ul>
+        <li><a href="#personagens">Galeria de personagens</a></li>
+        <li><a href="#habilidades">Tabela de Temporadas ou Curiosidades</a></li>
+        <li><a href="#cenarios">Cenários marcantes</a></li>
+        </ul>
+        </div>
+    </header>
+
+<!--HERO SECTION que é a apresentação principal da série-->
+
+<section class="hero">
+<h2>"I am the one who knocks."</h2>
+<p>
+Reviva a trajetória de Walter White, um professor de química que se transforma em um dos personagens mais marcantes da televisão.
+</p>
+<br><br>
+ <a class="btn-assistir" href="https://www.netflix.com/watch/70196252?trackId=284616272&tctx=NaN%2C3%2Ca84d2f81-c310-402b-90d2-460ef886d1a6%2Ca84d2f81-c310-402b-90d2-460ef886d1a6%7C%3DeyJwYWdlSWQiOiI3ZWY3MDE0Mi01MGI2LTRhYTItOTlkYy05OWVkMjU1YjFmYWQvMS8vYnJhLzAvMCIsImxvY2FsU2VjdGlvbklkIjoiMiJ9%2C%2C%2C%2C%2C70143836%2CVideo%3A70196252%2CdetailsPageEpisodePlayButton">ASSISTIR</a>
+</section>
+
+<!--TABELA DE TEMPORADAS que são as informações contendo episódios etc-->
+<section class="temporadas" id="habilidades">
+    <h2>Temporadas de Breaking Bad</h2>
+
+    <table>
+        <tr>
+            <th>Temporada</th>
+            <th>Ano</th>
+            <th>Episódios</th>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>2008</td>
+            <td>7</td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>2009</td>
+            <td>13</td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>2010</td>
+            <td>13</td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>2011</td>
+            <td>13</td>
+        </tr>
+
+        <tr>
+            <td>5</td>
+            <td>2012-2013</td>
+            <td>16</td>
+        </tr>
+    </table>
+</section>
+ 
+<!--GALERIA DE PERSONAGENS são cards clicáveis dos personagens principais-->
+<main class="conteudo-cartao">
+<section class="personagens" id="personagens">
+
+<a href="#gus-1" class="link-cartao">
+<div class="cartao" id="gus">
+<img class="image"
+src="https://static.wikia.nocookie.net/breakingbad/images/b/be/Season_4_-_Gus.jpg/revision/latest/scale-to-width/360?cb=20200608213000" alt="Gus Fring">
+<h2>Gus Fring</h2>
+<span class="select">SELECIONAR</span>
+</div>
+</a>
+
+
+<a href="#jesse-1" class="link-cartao">
+<div class="cartao" id="jesse">
+<img class="image" src="https://static.wikia.nocookie.net/breakingbad/images/9/95/JesseS5.jpg/revision/latest/scale-to-width/360?cb=20120620012441" alt="Jesse Pinkman">
+<h2>Jesse Pinkman</h2>
+<span class="select">SELECIONAR</span>
+</div>
+</a>
+
+<a href="#walter-1" class="link-cartao">
+<div class="cartao" id="walter">
+<img class="image" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Walter_White_S5B.png/250px-Walter_White_S5B.png" alt="Walter White">
+<h2>Walter White (Heisenberg)</h2>
+<span class="select">SELECIONAR</span>
+</div>
+</a>
+
+<a href="#jimmy-1" class="link-cartao">
+<div class="cartao" id="jimmy">
+<img class="image" src="https://upload.wikimedia.org/wikipedia/en/3/34/Jimmy_McGill_BCS_S3.png" alt="Jimmy Mcguill">
+<h2>Jimmy Mcguill</h2>
+<span class="select">SELECIONAR</span>
+</div>
+</a>
+
+<a href="#mike-1" class="link-cartao">
+<div class="cartao" id="mike">
+<img class="image" src="https://static.wikia.nocookie.net/breakingbad/images/9/9f/Season_4_-_Mike.jpg/revision/latest/scale-to-width/360?cb=20250728074206" alt="Jimmy Mcguill">
+<h2>Mike Ehrmantraut</h2>
+<span class="select">SELECIONAR</span>
+</div>
+</a>
+</main>
+
+
+<!--esse é o link de navegação da página, infos exibidas após seleção de personagem-->
+<main class="conteudo-info">
+<section class="informacoes" id="informacoes">
+    
+<div class="cardss">
+<div class="info-card" id="gus-1" >
+<span class="tag">Executivo e estrategista.</span>
+<h3>Gus Fring</h3>
+<p>
+Gus é um homem extremamente inteligente, paciente e disciplinado. 
+Ele raramente demonstra emoções fortes em público e parece estar sempre no controle da 
+situação.
+Uma de suas características mais impressionantes é sua capacidade de planejamento. 
+Gus pensa a longo prazo, evita decisões impulsivas e valoriza organização, eficiência 
+e discrição acima de tudo. Ele observa cuidadosamente as pessoas e prefere agir apenas 
+quando acredita ter todas as variáveis sob controle
+</p>
+
+<div class="meta">
+<span>N/R</span>
+<span>•</span>
+<span>Dono do Pollos Hermanos</span>
+</div>
+</div>
+
+<div class="info-card" id="jesse-1" >
+<span class="tag">Parceiro de campo.</span>
+<h3>Jesse Pinkman</h3>
+<p>
+À primeira vista, Jesse parece impulsivo, imaturo e despreocupado. 
+No entanto, conforme a história avança, ele demonstra ser uma pessoa 
+emocionalmente sensível, leal a quem considera importante e frequentemente em 
+conflito com as consequências de suas escolhas. Ele possui um forte lado humano e uma consciência 
+moral que o faz questionar situações que outros personagens encaram de forma mais fria.
+</p>
+
+<div class="meta">
+<span>1984</span>
+<span>•</span>
+<span>Parceiro de Walter.</span>
+</div>
+</div>
+
+<div class="info-card" id="walter-1" >
+<span class="tag">Parceiro de campo.</span>
+<h3>Walter White</h3>
+<p>
+Walter é extremamente inteligente, analítico e metódico. 
+Como professor de química, possui grande conhecimento científico e uma forte 
+capacidade de resolver problemas. 
+Inicialmente, parece uma pessoa reservada, responsável e dedicada à família. 
+Ao mesmo tempo, demonstra orgulho, determinação e uma necessidade de reconhecimento 
+que influenciam muitas de suas decisões.
+Uma característica marcante é sua habilidade de planejar 
+e pensar vários passos à frente, especialmente em situações difíceis
+</p>
+
+<div class="meta">
+<span>1958</span>
+<span>•</span>
+<span>Criador ambicioso.</span>
+</div>
+</div>
+
+<div class="info-card" id="jimmy-1" >
+<span class="tag">Resolução criativa de problemas.</span>
+<h3>Jimmy Mcguill</h3>
+<p>
+Jimmy é extremamente inteligente, criativo e comunicativo. Ele possui um talento natural para 
+convencer pessoas, improvisar soluções e encontrar saídas inesperadas para problemas difíceis.
+Ao contrário de personagens mais rígidos, Jimmy tende a enxergar regras como obstáculos flexíveis. 
+Apesar disso, demonstra empatia, senso de humor e uma grande necessidade de ser valorizado e respeitado.
+Uma de suas características mais marcantes é o carisma: 
+mesmo quando toma decisões questionáveis, ele costuma conquistar a simpatia das pessoas ao seu redor
+</p>
+
+<div class="meta">
+<span>1960</span>
+<span>•</span>
+<span>Advogado persuasivo.</span>
+</div>
+</div>
+
+<div class="info-card" id="mike-1" >
+<span class="tag">Gerente de operações de segurança.</span>
+<h3>Mike Ehrmantraut</h3>
+<p>
+Mike é extremamente disciplinado, paciente e pragmático. 
+Diferente de muitos personagens que agem por impulso, ele quase sempre mantém a calma, 
+mesmo sob pressão.
+Ele valoriza competência, profissionalismo e lealdade. 
+Não gosta de chamar atenção para si mesmo e prefere resolver problemas de forma eficiente, 
+sem dramatização. Apesar de sua aparência fria, Mike possui um forte senso de responsabilidade 
+e segue um código moral próprio, mesmo em situações difíceis
+</p>
+
+<div class="meta">
+<span>N/R</span>
+<span>•</span>
+<span>Operador de execução.</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+
+<!--CENÁRIOS MARCANTES são locais importantes que aparecem ao longo da série-->
+<section class="cenarios" id="cenarios">
+<h2>CENÁRIOS MARCANTES</h2>
+
+<div class="cenarios-grid">
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/1200x/a8/74/79/a874798f6f9108ce73aa1a3d5164f734.jpg" alt="Deserto">
+
+    <div class="overlay">
+    <h3>Deserto do Novo México</h3>
+
+    <p>Local onde Walter e Jesse iniciam sua operação.</p>
+    </div>
+    </div>
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/1200x/48/3f/47/483f47693e48c9b686faccec5cfba762.jpg" alt="Los Pollos Hermanos">
+
+    <div class="overlay">
+    <h3>Los Pollos Hermanos</h3>
+
+    <p>A fachada perfeita para os negócios de Gus Fring.</p>
+    </div>
+    </div>
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/1200x/b3/2f/7f/b32f7f240622c1b15d524fa40cb4887a.jpg" alt="Superlaboratorio">
+
+    <div class="overlay">
+    <h3>Superlaboratorio</h3>
+
+    <p>A lavanderia industrial escondendo o laboratótio.</p>
+    </div>
+    </div>
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/1200x/b1/14/56/b114567d23497f68d3a56966ce50fc87.jpg" alt="Escritorio">
+
+    <div class="overlay">
+    <h3>Escritório de Saul Goodman</h3>
+
+    <p>Onde muitas das negociações acontecem.</p>
+    </div>
+    </div>
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/1200x/b7/8d/5f/b78d5fafb52739dee16d3ffbc688ded3.jpg" alt="Lava carros">
+
+    <div class="overlay">
+    <h3>A1A Car Wash</h3>
+    <p>Negócio comprado por Walter para lavar dinheiro.</p>
+    </div>
+    </div>
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/1200x/d0/61/4d/d0614d6a696e5c466438c25841a28e79.jpg" alt="casa do jessie">
+
+    <div class="overlay">
+    <h3>Casa de Jesse Pinkman</h3>
+
+    <p>Onde muitas coisas podem acontecer.</p>
+    </div>
+    </div>
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/1200x/57/df/ec/57dfec998f6b9c5b51e7a05d73d2e961.jpg" alt="casa do walter">
+
+    <div class="overlay">
+    <h3>Casa do Walter White</h3>
+
+    <p>Refúgio de uma das maiores mentes por trás da trama.</p>
+    </div>
+    </div>
+
+    <div class="cenario">
+    <img src="https://i.pinimg.com/736x/b5/0f/f3/b50ff3c825588fc073102c15738edaa7.jpg" alt="casa do Hank">
+
+    <div class="overlay">
+    <h3>Casa de Hank e Marie</h3>
+
+    <p>Onde vive o  casal cunhado de Walter White.</p>
+    </div>
+    </div>
+
+    
+
+</div>
+</section>
+
+<!--UNIVERSO EXPANDIDO obras do universo de breanking bad-->
+<section class="universo" id="cenarios">
+
+    <h2>MAIS DO UNIVERSO BREAKING BAD</h2>
+<div class="universo-grid">
+     <a href="https://www.netflix.com/watch/80170694?trackId=284616272" target="_blank" class="card-ref">
+    <img src="https://i.pinimg.com/webp/1200x/a1/da/bd/a1dabd442eb202b2bff5aa3c4d4f076f.webp" alt="Better Call Saul">
+     
+    <div class="conteudo">
+     <h3>Better Call Saul</h3>
+     <p>
+        A história de Jimmy McGill antes de se tornar Saul Goodman.
+     </p>
+    </div>
+     </a>
+
+     <a href="https://www.netflix.com/watch/81078819?trackId=284616272&tctx=NaN%2C0%2C2e1a83cd-e718-47c5-aee4-c6aa8e90b887%2C2e1a83cd-e718-47c5-aee4-c6aa8e90b887%7C%3DeyJwYWdlSWQiOiJhNmQyMmYyNC1jZDc0LTQ0YjUtOGU0OS1iNmFkZDFhNjc4ZTMvMS8vZWwgY2FtaW4vMC8wIiwibG9jYWxTZWN0aW9uSWQiOiIyIn0%3D%2C%2C%2C%2C%2C81078819%2CVideo%3A81078819%2CminiDpPlayButton" target="_blank" class="card-ref">
+     <img src="https://i.pinimg.com/736x/97/0f/20/970f20fb266075deeb9b31be53fac657.jpg" alt="El Camino">
+     <div class="conteudo">
+      <h3>El Camino</h3>
+      <p>
+        O que aconteceu com Jesse Pinkman após os eventos finais de Breaking Bad.
+      </p>
+     </div>
+
+     </a>
+    </div>
+
+</section>
+
+<!--Informaçoes academicas e créditos RODAPÉ-->
+<footer class="rodape" id="rodape">
+    <p>Projeto acadêmico desenvolvido para a disciplina de Desenvolvimento Web.</p>
+    <p>© 2026 - Breaking Bad Fan Page</p>
+</footer>
+
+
+
+</section>
+</body>
+</html>
